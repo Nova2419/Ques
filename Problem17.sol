@@ -6,6 +6,7 @@ contract DistributedLedger {
         address sender;
         address receiver;
         uint amount;
+        string transactionId;
     }
 
     Transaction[] public transactions;
@@ -22,13 +23,15 @@ contract DistributedLedger {
 
     function addTransaction(
         address _receiver,
-        uint _amount
+        uint _amount,
+        string memory _transactionId
     ) public onlyValidNode {
         Transaction memory newTransaction = Transaction(
             block.timestamp,
             msg.sender,
             _receiver,
-            _amount
+            _amount,
+            _transactionId
         );
         transactions.push(newTransaction);
     }
